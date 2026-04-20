@@ -197,6 +197,56 @@
                 </div>
             </section>
 
+            <section id="faq" class="mt-20 reveal">
+                <div class="grid lg:grid-cols-5 gap-6 items-start">
+                    <div class="lg:col-span-2">
+                        <p class="uppercase text-xs tracking-[0.14em] text-leaf">Student 1 Feature</p>
+                        <h2 class="font-display text-4xl mt-3 leading-tight">Frequently Asked Questions</h2>
+                        <p class="mt-4 text-sm text-ink/75">
+                            Quick answers about delivery schedule, payment options, and refill returns.
+                        </p>
+                    </div>
+                    <div id="faq-list" class="lg:col-span-3 space-y-3">
+                        <article class="faq-item bg-white/85 border border-ink/10 rounded-2xl p-5 shadow-card">
+                            <button type="button" class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false">
+                                <span class="font-semibold">What areas do you cover?</span>
+                                <span class="faq-icon text-xl leading-none transition-transform duration-300">+</span>
+                            </button>
+                            <div class="faq-panel max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                                <p class="pt-3 text-sm text-ink/75">We currently deliver in Quezon City, Pasig, Makati, Mandaluyong, and nearby barangays.</p>
+                            </div>
+                        </article>
+                        <article class="faq-item bg-white/85 border border-ink/10 rounded-2xl p-5 shadow-card">
+                            <button type="button" class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false">
+                                <span class="font-semibold">Can I pay with GCash or cash on delivery?</span>
+                                <span class="faq-icon text-xl leading-none transition-transform duration-300">+</span>
+                            </button>
+                            <div class="faq-panel max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                                <p class="pt-3 text-sm text-ink/75">Yes. We accept GCash, cash on delivery, and bank transfer for weekly and monthly customers.</p>
+                            </div>
+                        </article>
+                        <article class="faq-item bg-white/85 border border-ink/10 rounded-2xl p-5 shadow-card">
+                            <button type="button" class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false">
+                                <span class="font-semibold">Do I need to provide my own bottles?</span>
+                                <span class="faq-icon text-xl leading-none transition-transform duration-300">+</span>
+                            </button>
+                            <div class="faq-panel max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                                <p class="pt-3 text-sm text-ink/75">You can use your own containers or borrow ours with a refundable bottle deposit.</p>
+                            </div>
+                        </article>
+                        <article class="faq-item bg-white/85 border border-ink/10 rounded-2xl p-5 shadow-card">
+                            <button type="button" class="faq-trigger w-full flex items-center justify-between text-left gap-4" aria-expanded="false">
+                                <span class="font-semibold">What is your order cutoff time?</span>
+                                <span class="faq-icon text-xl leading-none transition-transform duration-300">+</span>
+                            </button>
+                            <div class="faq-panel max-h-0 overflow-hidden transition-all duration-300 ease-out">
+                                <p class="pt-3 text-sm text-ink/75">Place orders by 3:00 PM for next-day delivery slots, Tuesday to Saturday.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
             <section class="mt-20 grid lg:grid-cols-5 gap-6 items-stretch">
                 <div class="lg:col-span-3 reveal bg-leaf text-sand rounded-[2rem] p-8">
                     <p class="uppercase text-xs tracking-[0.14em] text-sand/70">What locals say</p>
@@ -282,6 +332,35 @@
         });
         calcContainer.addEventListener("change", runCalculator);
         runCalculator();
+
+        const faqItems = document.querySelectorAll(".faq-item");
+        faqItems.forEach((item) => {
+            const trigger = item.querySelector(".faq-trigger");
+            const panel = item.querySelector(".faq-panel");
+            const icon = item.querySelector(".faq-icon");
+
+            trigger.addEventListener("click", () => {
+                const isOpen = trigger.getAttribute("aria-expanded") === "true";
+
+                faqItems.forEach((otherItem) => {
+                    const otherTrigger = otherItem.querySelector(".faq-trigger");
+                    const otherPanel = otherItem.querySelector(".faq-panel");
+                    const otherIcon = otherItem.querySelector(".faq-icon");
+
+                    otherTrigger.setAttribute("aria-expanded", "false");
+                    otherPanel.style.maxHeight = "0px";
+                    otherIcon.style.transform = "rotate(0deg)";
+                    otherIcon.textContent = "+";
+                });
+
+                if (!isOpen) {
+                    trigger.setAttribute("aria-expanded", "true");
+                    panel.style.maxHeight = `${panel.scrollHeight}px`;
+                    icon.style.transform = "rotate(45deg)";
+                    icon.textContent = "+";
+                }
+            });
+        });
     </script>
 </body>
 </html>
